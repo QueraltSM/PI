@@ -6,7 +6,6 @@ volatile int decenas = 6;
 boolean almohadilla = false;
 const int numeros[]  {0x3F, 0x06,0x5B,0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 String numeroLeido;
-int flag = 0;
 boolean arriba;
 boolean abajo;
 boolean jugando = false;
@@ -67,19 +66,6 @@ ISR(TIMER1_COMPA_vect){
 }
 
 
-void mostrarTempo(){
-    if (flag == 0) {
-      unidades = (count%10);
-      mostrarDisplay(49,unidades);    
-      flag=1;  
-    } else if (flag==1) {
-      decenas = (count/10);
-      mostrarDisplay(48, decenas);
-      flag = 0;
-    } 
-}
-
-
 void displayParpadear() {
   int j = 0;
   while (j<10) {
@@ -122,7 +108,7 @@ void interrupt(){
     leerTeclado(1);
     display++;
   }else if(display == 2){
-    decenas = ((count/10)%10);
+    decenas = (count/10);
     mostrarDisplay(48,decenas);
     leerTeclado(2);
     display++;
